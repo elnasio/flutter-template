@@ -1,4 +1,6 @@
-# Miscellaneous
+# =============================
+# ✅ General
+# =============================
 *.class
 *.log
 *.pyc
@@ -12,34 +14,94 @@
 .swiftpm/
 migrate_working_dir/
 
-# IntelliJ related
+# =============================
+# ✅ IntelliJ / Android Studio
+# =============================
 *.iml
 *.ipr
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# =============================
+# ✅ VSCode
+# =============================
+# Uncomment if you want to ignore all VSCode settings
+# .vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# =============================
+# ✅ Flutter / Dart / Pub
+# =============================
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
 /build/
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
-# Symbolication related
+# Symbolication / Obfuscation
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# =============================
+# ✅ Android
+# =============================
+/android/.gradle/
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/local.properties
+/android/.idea
+/android/.DS_Store
+/android/captures/
+android/gradle.properties
+.gradle/
+*.keystore
+
+# =============================
+# ✅ iOS
+# =============================
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/.symlinks
+/ios/Pods
+/ios/.dart_tool
+/ios/.generated
+/ios/Runner.xcworkspace
+ios/DerivedData/
+ios/.DS_Store
+
+# =============================
+# ✅ macOS
+# =============================
+/macos/.DS_Store
+/macos/Flutter/ephemeral/
+/macos/Flutter/Flutter.framework
+/macos/Pods/
+/macos/Runner.xcworkspace
+/macos/.dart_tool
+/macos/.generated
+
+# =============================
+# ✅ Windows
+# =============================
+/windows/.dart_tool
+/windows/flutter/ephemeral/
+/windows/CMakeFiles/
+/windows/CMakeCache.txt
+/windows/Makefile
+/windows/*.vcxproj*
+/windows/*.sln
+
+# =============================
+# ✅ Linux
+# =============================
+/linux/.dart_tool
+/linux/flutter/ephemeral/
+/linux/CMakeFiles/
+/linux/CMakeCache.txt
+/linux/Makefile
+/linux/*.vcxproj*
+/linux/*.sln
