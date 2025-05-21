@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:new_flutter/navigation/splash_route.dart';
 
@@ -14,6 +15,9 @@ import 'auth_notifier.dart';
 final router = GoRouter(
   initialLocation: AppRoute.splash.path,
   refreshListenable: authNotifier,
+  observers: [
+    ChuckerFlutter.navigatorObserver,
+  ],
   routes: [
     ShellRoute(
       builder: (context, state, child) => ScaffoldWithBottomNav(child: child),

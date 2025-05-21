@@ -13,7 +13,6 @@ Future<HttpClientAdapter> createPinnedAdapter() async {
   );
 
   if (env != 'release') {
-    // Non-release: gunakan default
     return DefaultHttpClientAdapter();
   }
 
@@ -23,7 +22,6 @@ Future<HttpClientAdapter> createPinnedAdapter() async {
 
   final HttpClient client = HttpClient(context: context);
   client.badCertificateCallback = (cert, host, port) {
-    // Kembalikan false jika ingin pinning keras, true untuk debug sementara
     return false;
   };
 

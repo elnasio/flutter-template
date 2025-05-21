@@ -18,10 +18,8 @@ Future<void> main() async {
 
   try {
     await dotenv.load(fileName: fileName);
-    print('✅ Loaded $fileName');
   } catch (e) {
-    print('❌ Gagal load $fileName: $e, fallback ke .env');
-    await dotenv.load(); // fallback ke .env biasa
+    await dotenv.load();
   }
 
   await init();

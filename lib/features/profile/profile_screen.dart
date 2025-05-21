@@ -13,7 +13,6 @@ class ProfileScreen extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
     await SessionService().setLogin(false);
     authNotifier.update(false);
-    print('🔓 Logout saved to SharedPreferences');
     if (context.mounted) {
       context.go(LoginRoute.login.path);
     }

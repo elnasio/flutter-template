@@ -2,16 +2,24 @@ import 'package:dio/dio.dart';
 import 'package:new_flutter/core/network/ssl_pinning_adapter.dart';
 
 import 'api_config.dart';
+import 'interceptors/global_interceptors.dart';
 
 class DioClient {
   final Dio dio;
 
-  DioClient() : dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl)) {
+  DioClient()
+      : dio = Dio(
+          BaseOptions(
+            baseUrl: ApiConfig.baseUrl,
+            connectTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10),
+          ),
+        ) {
     _setup();
   }
 
   Future<void> _setup() async {
-    dio.interceptors.add(LogInterceptor(responseBody: true));
+    dio.interceptors.addAll(buildGlobalInterceptors());
     dio.httpClientAdapter = await createPinnedAdapter();
   }
 }
