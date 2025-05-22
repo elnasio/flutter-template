@@ -61,10 +61,44 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PrimaryTextField(controller: _controller, hint: 'Tulis sesuatu...'),
-            const SizedBox(height: 16),
-            PrimaryButton(text: 'Submit', onPressed: _submitText),
+            const PrimaryText(
+              text: '👋 Selamat datang kembali!',
+              size: 22,
+              weight: FontWeight.bold,
+            ),
+            const SizedBox(height: 8),
+            const PrimaryText(
+              text: 'Kamu bisa menulis catatan cepat di bawah ini.',
+              size: 16,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const PrimaryText(
+                    text: '✍️ Tulis sesuatu...',
+                    size: 16,
+                    weight: FontWeight.w600,
+                  ),
+                  const SizedBox(height: 12),
+                  PrimaryTextField(
+                    controller: _controller,
+                    hint: 'Misalnya: belajar flutter bloc...',
+                  ),
+                  const SizedBox(height: 16),
+                  PrimaryButton(text: 'Simpan Catatan', onPressed: _submitText),
+                ],
+              ),
+            ),
           ],
         ),
       ),
