@@ -11,7 +11,7 @@ class InactivityService {
   InactivityService._internal();
 
   Timer? _inactivityTimer;
-  Duration timeout = const Duration(seconds: 10);
+  Duration timeout = const Duration(minutes: 1);
 
   void initialize(VoidCallback onTimeout) {
     _resetTimer(onTimeout);

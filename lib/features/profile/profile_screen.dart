@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:new_flutter/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:new_flutter/features/profile/presentation/bloc/profile_state.dart';
 
+import '../../core/domain/repositories/network_info.dart';
+import '../../di/network_di.dart';
 import '../../navigation/auth_notifier.dart';
 import '../../services/session_service.dart';
 import '../../ui/widgets/bottom_sheet_message.dart';
@@ -11,14 +15,34 @@ import '../../ui/widgets/primary_button.dart';
 import '../../ui/widgets/primary_text.dart';
 import '../login/presentation/login_route.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void> _checkConnectivity() async {
+    final isConnected = await sl<NetworkInfo>().isConnected;
+
+    if (!isConnected && mounted) {
+      showErrorSheet(context, "Tidak ada koneksi internet");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _checkConnectivity();
+  }
 
   void showSuccessSheet(BuildContext context, String msg) => showModalBottomSheet(
         context: context,
         builder: (_) => BottomSheetMessage(
           message: msg,
-          imageAsset: 'assets/images/success.png',
+          icon: Icons.check_circle_outline,
           buttonText: 'OK',
           onPressed: () => Navigator.pop(context),
         ),
@@ -28,6 +52,7 @@ class ProfileScreen extends StatelessWidget {
         context: context,
         builder: (_) => BottomSheetMessage(
           message: msg,
+          icon: Icons.error_outline,
           buttonText: 'Tutup',
           onPressed: () => Navigator.pop(context),
         ),
@@ -44,9 +69,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const PrimaryText(text: 'Profile'),
-      ),
+      appBar: AppBar(title: const PrimaryText(text: 'Profile')),
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoading || state is ProfileInitial) {
@@ -55,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
 
           if (state is ProfileError) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              showErrorSheet(context, "test");
+              showErrorSheet(context, state.message);
             });
             return const SizedBox.shrink();
           }
