@@ -6,12 +6,32 @@ import 'package:new_flutter/features/profile/presentation/bloc/profile_state.dar
 
 import '../../navigation/auth_notifier.dart';
 import '../../services/session_service.dart';
+import '../../ui/widgets/bottom_sheet_message.dart';
 import '../../ui/widgets/primary_button.dart';
 import '../../ui/widgets/primary_text.dart';
 import '../login/presentation/login_route.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+  void showSuccessSheet(BuildContext context, String msg) => showModalBottomSheet(
+        context: context,
+        builder: (_) => BottomSheetMessage(
+          message: msg,
+          imageAsset: 'assets/images/success.png',
+          buttonText: 'OK',
+          onPressed: () => Navigator.pop(context),
+        ),
+      );
+
+  void showErrorSheet(BuildContext context, String msg) => showModalBottomSheet(
+        context: context,
+        builder: (_) => BottomSheetMessage(
+          message: msg,
+          buttonText: 'Tutup',
+          onPressed: () => Navigator.pop(context),
+        ),
+      );
 
   Future<void> _logout(BuildContext context) async {
     await SessionService().setLogin(false);
@@ -34,9 +54,10 @@ class ProfileScreen extends StatelessWidget {
           }
 
           if (state is ProfileError) {
-            return Center(
-              child: PrimaryText(text: state.message),
-            );
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showErrorSheet(context, "test");
+            });
+            return const SizedBox.shrink();
           }
 
           if (state is ProfileLoaded) {
