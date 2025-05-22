@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../ui/widgets/primary_button.dart';
 import '../../../ui/widgets/primary_text.dart';
 import '../../../ui/widgets/primary_text_field.dart';
+import '../../navigation/auth_notifier.dart';
+import '../../services/inactivity/inactivity_service.dart';
+import '../../services/session_service.dart';
+import '../login/presentation/login_route.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,6 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ).showSnackBar(SnackBar(content: Text('Kamu nulis: $value')));
       _controller.clear();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    InactivityService().initialize(() async {
+      await SessionService().setLogin(false);
+      authNotifier.update(false);
+      if (mounted) {
+        context.go(LoginRoute.login.path);
+      }
+    });
   }
 
   @override

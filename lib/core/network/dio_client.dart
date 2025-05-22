@@ -20,6 +20,8 @@ class DioClient {
 
   Future<void> _setup() async {
     dio.interceptors.addAll(buildGlobalInterceptors());
-    dio.httpClientAdapter = await createPinnedAdapter();
+
+    final adapter = await createPinnedAdapter();
+    dio.httpClientAdapter = adapter;
   }
 }

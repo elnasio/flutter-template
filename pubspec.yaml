@@ -28,6 +28,9 @@ dependencies:
   http: ^1.0.0
   dio: ^5.4.0
   chucker_flutter: ^1.8.5
+  device_info_plus: ^11.4.0
+  package_info_plus: ^8.3.0
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:
